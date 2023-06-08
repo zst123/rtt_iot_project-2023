@@ -295,6 +295,8 @@
 /* Micrium: Micrium software products porting for RT-Thread */
 
 /* end of Micrium: Micrium software products porting for RT-Thread */
+#define PKG_USING_PERF_COUNTER
+#define PKG_USING_PERF_COUNTER_LATEST_VERSION
 /* end of system packages */
 
 /* peripheral libraries and drivers */
@@ -340,6 +342,7 @@
 #define PKG_USING_RTDUINO
 #define RTDUINO_THREAD_SIZE 2048
 #define RTDUINO_THREAD_PRIO 30
+#define RTDUINO_SUPPORT_HIGH_PRECISION_MICROS
 #define RTDUINO_USING_WIRE
 #define RTDUINO_WIRE_BUFFER_LENGTH 32
 #define RTDUINO_USING_SPI
