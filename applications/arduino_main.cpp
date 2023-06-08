@@ -10,21 +10,57 @@
 
 #include <Arduino.h>
 #include "stm32u575xx.h"
+#include "./Filters/Filters.h"
+
+// Current Transformer
+#define CT_EFFICIENCY (0.9)
+#define CT_RESISTOR (1200.0)
+#define CT_PIN1 (A4) // CT voltage generation
+#define CT_PIN2 (A5) // Midpoint reference
+
+// RMS filter
+RunningStatistics inputStats;
+float windowLength = 0.5;     // seconds to average the signal
+float TRMS = 0; // estimated true RMS
+
+// Track time in milliseconds since last reading 
+unsigned long printPeriod = 250; // in milliseconds
+unsigned long previousMillis = 0;
 
 void setup(void)
 {
     /* put your setup code here, to run once: */
     Serial.begin();
+    pinMode(LD1, OUTPUT);
+
+    // Delay 5 seconds to wait for rw007 to setup first
+    delay(5000);
+
+    // RMS filter
+    inputStats.setWindowSecs(windowLength);
 }
 
 void loop(void)
 {
     /* put your main code here, to run repeatedly: */
-    Serial.print("## A0:");  Serial.print(analogRead(A0));
-    Serial.print(" | A1:");  Serial.print(analogRead(A1));
-    Serial.print(" | A2:");  Serial.print(analogRead(A2));
-    Serial.print(" | A3:");  Serial.print(analogRead(A3));
-    Serial.print(" | A4:");  Serial.print(analogRead(A4));
-    Serial.print(" | A5:");  Serial.println(analogRead(A5));
-    delay(2000);
+    delayMicroseconds(100);
+
+    // Read waveform and subtract biasing
+    const int adcValue = analogRead(CT_PIN1) - analogRead(CT_PIN2);
+    const float adcVoltage = (adcValue * 3.3 / 1024);
+
+    // Get primary side current from the secondary voltage (turns ratio is 2000)
+    float milliamp = adcVoltage * (2000.0 / CT_RESISTOR) * 1000 / CT_EFFICIENCY;
+    inputStats.input(milliamp);  // log to stats function
+    Serial.print(milliamp, DEC); 
+
+    // Update the calculation
+    if((unsigned long)(millis() - previousMillis) >= printPeriod) {
+        previousMillis = millis();   // update time
+        digitalWrite(LD1, !digitalRead(LD1)); // toggle green LED
+        TRMS = inputStats.sigma();
+        Serial.print(",");
+        Serial.print(TRMS, DEC); 
+    }
+    Serial.println();
 }

@@ -34,6 +34,7 @@
 #define A3        (19)
 #define A4        (20)
 #define A5        (21)
+#define LD1       (22)
 
 #define F_CPU          160000000L  /* CPU:160MHz */
 

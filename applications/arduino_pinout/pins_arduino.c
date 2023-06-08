@@ -43,4 +43,5 @@ const pin_map_t pin_map_table[]=
     {A3, GET_PIN(B,0), "adc1", 15},     /* ADC, On-Chip: internal reference voltage, ADC_CHANNEL_VREFINT */
     {A4, GET_PIN(C,1), "adc1", 2},      /* ADC, On-Chip: internal reference voltage, ADC_CHANNEL_VREFINT */
     {A5, GET_PIN(C,0), "adc1", 1},      /* ADC, On-Chip: internal reference voltage, ADC_CHANNEL_VREFINT */
+    {LD1, GET_PIN(C,7)}, /* Nucleo board LED LD1 */
 };
