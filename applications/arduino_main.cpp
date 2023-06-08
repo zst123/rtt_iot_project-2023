@@ -9,6 +9,7 @@
  */
 
 #include <Arduino.h>
+#include "stm32u575xx.h"
 
 void setup(void)
 {
@@ -19,6 +20,11 @@ void setup(void)
 void loop(void)
 {
     /* put your main code here, to run repeatedly: */
-    Serial.println("Hello Arduino!");
-    delay(800);
+    Serial.print("## A0:");  Serial.print(analogRead(A0));
+    Serial.print(" | A1:");  Serial.print(analogRead(A1));
+    Serial.print(" | A2:");  Serial.print(analogRead(A2));
+    Serial.print(" | A3:");  Serial.print(analogRead(A3));
+    Serial.print(" | A4:");  Serial.print(analogRead(A4));
+    Serial.print(" | A5:");  Serial.println(analogRead(A5));
+    delay(2000);
 }

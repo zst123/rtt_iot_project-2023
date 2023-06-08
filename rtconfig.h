@@ -143,6 +143,7 @@
 
 /* end of Interprocess Communication (IPC) */
 /* end of POSIX (Portable Operating System Interface) layer */
+#define RT_USING_CPLUSPLUS
 /* end of C/C++ and POSIX layer */
 
 /* Network */
@@ -336,6 +337,14 @@
 
 /* Arduino libraries */
 
+#define PKG_USING_RTDUINO
+#define RTDUINO_THREAD_SIZE 2048
+#define RTDUINO_THREAD_PRIO 30
+#define RTDUINO_USING_WIRE
+#define RTDUINO_WIRE_BUFFER_LENGTH 32
+#define RTDUINO_USING_SPI
+#define RTDUINO_USING_SERVO
+#define PKG_USING_RTDUINO_LATEST_VERSION
 
 /* Projects */
 
@@ -388,6 +397,7 @@
 
 /* Onboard Peripheral Drivers */
 
+#define BSP_USING_ARDUINO
 /* end of Onboard Peripheral Drivers */
 
 /* On-chip Peripheral Drivers */
@@ -396,8 +406,23 @@
 #define BSP_USING_UART
 #define BSP_USING_UART1
 #define BSP_USING_ADC
+#define BSP_USING_ADC1
+#define BSP_USING_PWM
+#define BSP_USING_PWM1
+#define BSP_USING_PWM1_CH1
+#define BSP_USING_PWM1_CH2
+#define BSP_USING_PWM1_CH3
+#define BSP_USING_PWM4
+#define BSP_USING_PWM4_CH4
 #define BSP_USING_SPI
 #define BSP_USING_SPI1
+#define BSP_USING_I2C
+#define BSP_USING_I2C1
+
+/* Notice: PB8 --> 24; PB9 --> 25 */
+
+#define BSP_I2C1_SCL_PIN 24
+#define BSP_I2C1_SDA_PIN 25
 /* end of On-chip Peripheral Drivers */
 
 /* Board extended module Drivers */
