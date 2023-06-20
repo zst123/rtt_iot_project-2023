@@ -12,6 +12,8 @@
 #include "stm32u575xx.h"
 #include "./Filters/Filters.h"
 
+extern "C" float TRMS;
+
 // Current Transformer
 #define CT_EFFICIENCY (0.9)
 #define CT_RESISTOR (1200.0)
