@@ -45,9 +45,10 @@ static void uploader_entry(void *parameter) {
 
         char * URI = "http://io.adafruit.com/api/v2/" IO_USERNAME "/feeds/current-sensor/data?X-AIO-Key=" IO_KEY;
         char post_data[100];
-        size_t data_len = snprintf(post_data, 100, "%d\r\n", (int) (TRMS*1000));
+        size_t data_len = snprintf(post_data, 100, "value=%d\r\n", (int) (TRMS*1000));
         rt_kprintf("Sending to cloud: %s\r\n", post_data);
 
+        webclient_header_fields_add(session, "Content-Length: %d\r\n", data_len);
         webclient_header_fields_add(session, "Content-Type: application/x-www-form-urlencoded\r\n");
         if ((resp_status = webclient_post(session, URI, post_data, data_len)) != 200) {
             rt_kprintf("webclient POST request failed, response(%d) error.\n", resp_status);

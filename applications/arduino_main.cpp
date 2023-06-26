@@ -54,15 +54,15 @@ void loop(void)
     // Get primary side current from the secondary voltage (turns ratio is 2000)
     float milliamp = adcVoltage * (2000.0 / CT_RESISTOR) * 1000 / CT_EFFICIENCY;
     inputStats.input(milliamp);  // log to stats function
-    Serial.print(milliamp, DEC); 
+    //Serial.print(milliamp, DEC); 
 
     // Update the calculation
     if((unsigned long)(millis() - previousMillis) >= printPeriod) {
         previousMillis = millis();   // update time
         digitalWrite(LD1, !digitalRead(LD1)); // toggle green LED
         TRMS = inputStats.sigma();
-        Serial.print(",");
-        Serial.print(TRMS, DEC); 
+        // Serial.print(",");
+        // Serial.print(TRMS, DEC); 
     }
-    Serial.println();
+    // Serial.println();
 }
